@@ -27,15 +27,15 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     private final ChatMessageRepository chatMessageRepository;
     private final IssueRepository issueRepository;
-    private final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     // Maps issueId to a list of WebSocket sessions for that issue
     private final Map<Integer, List<WebSocketSession>> issueSessions = new ConcurrentHashMap<>();
 
-    public ChatWebSocketHandler(ChatMessageRepository chatMessageRepository, IssueRepository issueRepository, ObjectMapper objectMapper) {
+    public ChatWebSocketHandler(@org.springframework.context.annotation.Lazy ChatMessageRepository chatMessageRepository, 
+                                @org.springframework.context.annotation.Lazy IssueRepository issueRepository) {
         this.chatMessageRepository = chatMessageRepository;
         this.issueRepository = issueRepository;
-        this.objectMapper = objectMapper;
     }
 
     @Override
