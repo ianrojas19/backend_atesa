@@ -10,12 +10,19 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
-    @Autowired
     private StateWebSocketHandler stateWebSocketHandler;
+    private ChatWebSocketHandler chatWebSocketHandler;
+
+    public WebSocketConfig(StateWebSocketHandler stateWebSocketHandler, ChatWebSocketHandler chatWebSocketHandler) {
+        this.stateWebSocketHandler = stateWebSocketHandler;
+        this.chatWebSocketHandler = chatWebSocketHandler;
+    }
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(stateWebSocketHandler, "/ws/status")
+                .setAllowedOrigins("*");
+        registry.addHandler(chatWebSocketHandler, "/ws/chat")
                 .setAllowedOrigins("*");
     }
 }

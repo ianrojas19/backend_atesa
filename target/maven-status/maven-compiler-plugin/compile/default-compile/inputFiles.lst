@@ -1,3 +1,4 @@
+C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\config\ChatWebSocketHandler.java
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\config\DatabaseSchemaInitializer.java
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\config\SecurityConfig.java
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\config\StateWebSocketHandler.java
@@ -9,6 +10,7 @@ C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\controller\ServiceTypeController.java
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\controller\SupportUserController.java
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\controller\UserController.java
+C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\model\entities\ChatMessage.java
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\model\entities\Issue.java
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\model\entities\IssueComment.java
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\model\entities\IssueLog.java
@@ -18,6 +20,7 @@ C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\model\entities\Supervisor.java
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\model\entities\Supporter.java
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\model\entities\User.java
+C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\repository\ChatMessageRepository.java
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\repository\IssueCommentRepository.java
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\repository\IssueLogRepository.java
 C:\Users\ian_r\OneDrive\Desktop\Github\proyecto_ds3_atesa\connexion-backend\src\main\java\cr\ac\ucr\connexion_backend\repository\IssueNoteRepository.java

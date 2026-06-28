@@ -3,6 +3,9 @@ package cr.ac.ucr.connexion_backend.controller;
 import cr.ac.ucr.connexion_backend.model.entities.Issue;
 import cr.ac.ucr.connexion_backend.model.entities.IssueComment;
 import cr.ac.ucr.connexion_backend.model.entities.IssueNote;
+import cr.ac.ucr.connexion_backend.model.entities.ChatMessage;
+import cr.ac.ucr.connexion_backend.repository.ChatMessageRepository;
+import cr.ac.ucr.connexion_backend.repository.SupervisorRepository;
 import cr.ac.ucr.connexion_backend.service.IssueService;
 import cr.ac.ucr.connexion_backend.service.IssueLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,12 @@ public class IssueController {
 
     @Autowired
     private IssueLogService issueLogService;
+
+    @Autowired
+    private ChatMessageRepository chatMessageRepository;
+    
+    @Autowired
+    private SupervisorRepository supervisorRepository;
 
     @PostMapping
     public ResponseEntity<Issue> registerIssue(
@@ -56,6 +65,10 @@ public class IssueController {
             @RequestParam int supportUserId,
             @RequestParam(required = false) Integer actorId,
             @RequestParam(required = false) String actorRole) {
+        
+        if (!"supervisor".equalsIgnoreCase(actorRole) || actorId == null || !supervisorRepository.existsById(actorId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
         
         Issue issue = issueService.assignSupporter(id, supportUserId);
         
@@ -142,6 +155,33 @@ public class IssueController {
                 issueService.addComment(id, clientId, request.commentText()),
                 HttpStatus.CREATED
         );
+    }
+
+    @GetMapping("/{id}/chat")
+    public ResponseEntity<?> getChatHistory(
+            @PathVariable int id,
+            @RequestParam int userId,
+            @RequestParam String role) {
+        
+        Issue issue = issueService.findById(id);
+        if (issue == null) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        boolean authorized = false;
+        if ("CLIENT".equalsIgnoreCase(role) && issue.getClientId() != null && issue.getClientId() == userId) {
+            authorized = true;
+        } else if ("SUPPORTER".equalsIgnoreCase(role) && issue.getSupporterId() != null && issue.getSupporterId() == userId) {
+            authorized = true;
+        } else if ("supervisor".equalsIgnoreCase(role)) {
+            authorized = true;
+        }
+        
+        if (!authorized) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(java.util.Map.of("error", "No autorizado para ver este chat"));
+        }
+        
+        return ResponseEntity.ok(chatMessageRepository.findByIssue_IdOrderByTimestampAsc(id));
     }
 
     public record NoteRequest(String description) {

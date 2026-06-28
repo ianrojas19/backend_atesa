@@ -17,6 +17,7 @@ public class DatabaseSchemaInitializer {
     public void initialize() {
         addColumnIfMissing("supporter_id", "INT NULL");
         addColumnIfMissing("author_type", "VARCHAR(20) NULL");
+        createChatMessagesTableIfMissing();
     }
 
     private void addColumnIfMissing(String columnName, String definition) {
@@ -29,6 +30,28 @@ public class DatabaseSchemaInitializer {
 
         if (count != null && count == 0) {
             jdbcTemplate.execute("ALTER TABLE issue_comments ADD " + columnName + " " + definition);
+        }
+    }
+
+    private void createChatMessagesTableIfMissing() {
+        Integer count = jdbcTemplate.queryForObject("""
+                SELECT COUNT(*)
+                FROM INFORMATION_SCHEMA.TABLES
+                WHERE TABLE_NAME = 'chat_messages'
+                """, Integer.class);
+
+        if (count != null && count == 0) {
+            jdbcTemplate.execute("""
+                CREATE TABLE chat_messages (
+                    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+                    issue_id INT NOT NULL,
+                    sender_id INT NOT NULL,
+                    sender_role VARCHAR(20) NOT NULL,
+                    message NVARCHAR(MAX) NOT NULL,
+                    timestamp DATETIME2 NOT NULL,
+                    CONSTRAINT fk_chat_issue FOREIGN KEY (issue_id) REFERENCES issues(id)
+                )
+                """);
         }
     }
 }
