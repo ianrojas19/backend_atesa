@@ -21,6 +21,16 @@ public class DatabaseSchemaInitializer {
     }
 
     private void addColumnIfMissing(String columnName, String definition) {
+        Integer tableCount = jdbcTemplate.queryForObject("""
+                SELECT COUNT(*)
+                FROM INFORMATION_SCHEMA.TABLES
+                WHERE TABLE_NAME = 'issue_comments'
+                """, Integer.class);
+
+        if (tableCount == null || tableCount == 0) {
+            return; // Table doesn't exist yet, nothing to alter
+        }
+
         Integer count = jdbcTemplate.queryForObject("""
                 SELECT COUNT(*)
                 FROM INFORMATION_SCHEMA.COLUMNS
@@ -34,6 +44,16 @@ public class DatabaseSchemaInitializer {
     }
 
     private void createChatMessagesTableIfMissing() {
+        Integer issuesTableCount = jdbcTemplate.queryForObject("""
+                SELECT COUNT(*)
+                FROM INFORMATION_SCHEMA.TABLES
+                WHERE TABLE_NAME = 'issues'
+                """, Integer.class);
+
+        if (issuesTableCount == null || issuesTableCount == 0) {
+            return; // 'issues' table doesn't exist, cannot create foreign key
+        }
+
         Integer count = jdbcTemplate.queryForObject("""
                 SELECT COUNT(*)
                 FROM INFORMATION_SCHEMA.TABLES
